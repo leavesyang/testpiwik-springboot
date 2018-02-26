@@ -1,7 +1,8 @@
 package com.yang.testpiwik.web;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.MDC;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +26,8 @@ public class IndexController {
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    Logger log = Logger.getLogger(this.getClass().getName());
-
+    //    Logger log = Logger.getLogger(this.getClass().getName());
+    private Logger log = LoggerFactory.getLogger(IndexController.class);
     @Autowired
     RestTemplate restTemplate;
 
@@ -40,7 +41,9 @@ public class IndexController {
     @ResponseBody
     public Map<String, String> test(String hostPort) {
         log.info("test");
-        return (hostPort != null && hostPort.length() != 0) ? test3(hostPort) : test2();
+        return (hostPort != null && hostPort.length() != 0)
+                ? test3(hostPort)
+                : test2();
     }
 
     private Map<String, String> test3(String hostPort) {
